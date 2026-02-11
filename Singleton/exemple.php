@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * ==========================================
+ * Pattern Singleton : La Tour de Contrôle
+ * ==========================================
+ * 
+ * Contexte :
+ * Dans un aéroport, il n'y a qu'une seule Tour de Contrôle (ATC).
+ * Toutes les communications radio des avions doivent passer par cette unique tour.
+ * 
+ * Problème :
+ * Si on crée plusieurs instances de la tour, on risque d'avoir des conflits
+ * (deux tours donnant des ordres contradictoires aux mêmes avions).
+ * Il faut garantir qu'il n'y ait jamais plus d'une seule instance de la tour.
+ */
+
 class TourDeControle
 {
     private static ?TourDeControle $instance = null;
