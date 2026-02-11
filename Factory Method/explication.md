@@ -6,7 +6,7 @@ Imaginez que vous développez un système de paiement. Aujourd'hui, vous ne gér
 Si votre code principal instancie directement les classes de paiement (ex: `new CreditCardPayment()`), vous allez devoir modifier ce code à chaque fois que vous ajoutez un nouveau moyen de paiement. Votre code devient rigide et difficile à maintenir car il dépend des classes concrètes pour chaque type de paiement.
 
 ## 🧠 Solution : La Fabrique (Factory)
-Au lieu de créer les objets directement avec `new` dans le code client avec plein de if else, on délègue cette responsabilité à une classe spécialisée : la **Factory** (`PaymentFactory`).
+Au lieu de créer les objets directement avec `new` dans le code client avec plein de if else degeulasse, on délègue cette responsabilité à une classe spécialisée : la **Factory** (`PaymentFactory`).
 
 Dans l'exemple `exemple.php`, la méthode `PaymentFactory::createPayment` agit comme un point central pour "fabriquer" et utiliser le bon service de paiement en fonction d'un simple paramètre (une chaîne de caractères comme `'CreditCard'` ou `'PayPal'`).
 
