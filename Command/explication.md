@@ -1,6 +1,6 @@
-# 🎮 Command (Commande)
+# Command (Commande)
 
-## 🎯 Problème de Conception
+## Problème de Conception
 Imagine que tu développes une télécommande universelle pour une maison connectée (Smart Home). 
 Au départ, y a juste un bouton "On/Off" pour allumer une lampe. Tu écris le code d'allumage directement dans le code du bouton (`Bouton::onClick()`).
 
@@ -18,7 +18,7 @@ class Bouton {
 1. **Couplage très fort** : Le code de l'interface (la télécommande, les boutons) est pollué par le code métier de TOUS les appareils de la maison. C'est horrible à maintenir.
 2. **Historique impossible** : Comment faire un bouton *Ctrl+Z (Undo)* pour "Annuler la dernière action de la maison" si les actions sont de simples appels d'un bout à l'autre de l'application ?
 
-## 🧠 Solution : L'Action devient un Objet
+## Solution : L'Action devient un Objet
 Le pattern **Command** permet de prendre une action (comme "allumer la lumière") et de la transformer en un **objet autonome**.
 
 Au lieu que la télécommande allume la lampe, la télécommande exécute un objet `CommandeAllumerLampe`.
@@ -26,7 +26,7 @@ Au lieu que la télécommande allume la lampe, la télécommande exécute un obj
 2. L'interface (la télécommande ou *l'Invocateur*) n'a **aucune idée** de ce qui va se passer. Elle sait juste qu'elle demande à une commande de s'exécuter.
 3. Chaque objet "Commande" peut posséder une méthode `annuler()` qui fait l'inverse de son action ! Comme ce sont des objets, on peut les stocker dans une liste et faire *Ctrl+Z* sur l'historique !
 
-## 🏗 Structure du code (Analyse de l'exemple)
+## Structure du code (Analyse de l'exemple)
 
 ### 1. L'Interface (`Commande`)
 Le contrat pour toutes les actions possibles.
@@ -67,11 +67,11 @@ class Telecommande {
 ```
 *   **Rôle** : Recevoir les clics utilisateurs et les repousser vers l'objet Commande lié en ce moment au bouton.
 
-## 📈 Avantages de cette approche
+## Avantages de cette approche
 
 1.  **Découplage parfait** : L'objet qui invoque l'opération (`Telecommande`) ne connaît pas l'objet qui accomplit réellement l'opération (`Lampe`).
 2.  **L'historique et le "Undo / Redo" (Ctrl+Z)** : Comme chaque action est devenue un petit objet, on peut les mettre en tableau (un historique). Pour annuler, on dépile le tableau et on appelle la méthode `annuler()`.
 3.  **Mise en attente et Planification de tâches** : Si une action est une classe, on peut la stocker dans une file d'attente (comme *RabbitMQ* ou les tâches de fond *Laravel/Symfony*) pour qu'elle soit exécutée par le serveur à minuit ! Les objets peuvent s'envoyer ou se retarder facilement là où un simple appel de méthode disparaît vite.
 
-## ⚠️ À savoir
+## À savoir
 *   **Surplus de classes/petits fichiers** : C'est le principal défaut (souvent le cas avec les gros design patterns). Si tu as 50 actions métier différentes, tu devras créer 50 classes `Commande...`. Le projet se remplit de centaines de mini-fichiers, mais on gagne une flexibilité absolue en retour.
